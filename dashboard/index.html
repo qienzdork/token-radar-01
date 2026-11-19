@@ -1,14 +1,72 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Token Radar: pre-token protocols ranked by implied value</title>
+<title>Token Radar — which pre-token protocol is worth farming next</title>
 <link rel="stylesheet" href="app.css">
 </head>
 <body>
-<a class="skip" href="#board">Skip to the board</a>
-<main id="board" tabindex="-1" aria-busy="true"></main>
+<header class="hero">
+  <div>
+    <h1>TOKEN RADAR</h1>
+    <p class="tag">Every protocol that records no token yet, ranked by what its launch would be worth — and what to do about it.</p>
+  </div>
+  <p class="method">Implied value = TVL × 0.30 × growth × age × chains. One formula for every row, from the snapshot's own figures. A protocol "records no token" — the list is DefiLlama's record, not proof it has none.</p>
+</header>
+
+<section class="stats" aria-label="Board totals">
+  <div class="card"><span class="num" id="stat-rows">–</span><span class="lbl">protocols ranked</span></div>
+  <div class="card"><span class="num" id="stat-watchlist">–</span><span class="lbl">watchlist covered</span></div>
+  <div class="card"><span class="num" id="stat-total">–</span><span class="lbl">combined implied value</span></div>
+  <div class="card"><span class="num" id="stat-live">–</span><span class="lbl">live tokens set aside</span></div>
+</section>
+
+<section class="top5" aria-label="Top five">
+  <h2>Top 5 by implied value</h2>
+  <div id="top5"></div>
+</section>
+
+<section class="controls">
+  <div class="tabs" role="tablist">
+    <button type="button" data-tab="pre" class="active" role="tab">Pre-token</button>
+    <button type="button" data-tab="live" role="tab">Already live</button>
+  </div>
+  <input id="q" type="search" placeholder="Search name or slug…" aria-label="Search protocols">
+  <select id="cat" aria-label="Filter by category"><option value="">All categories</option></select>
+  <select id="chain" aria-label="Filter by chain"><option value="">All chains</option></select>
+  <label class="wl"><input id="wl" type="checkbox"> Watchlist only</label>
+</section>
+
+<p class="count" id="count"></p>
+<p class="hint">Click any row for the full model breakdown and its six farm steps. Click a column header to sort. The Live tab lists the largest tokened protocols by market cap — already launched, so never ranked here.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th data-sort="rank">#</th>
+      <th data-sort="name">Protocol</th>
+      <th data-sort="category">Category</th>
+      <th data-sort="chains">Chains</th>
+      <th data-sort="tvl_usd">TVL</th>
+      <th data-sort="change_7d">7d</th>
+      <th data-sort="age_days">Age</th>
+      <th data-sort="implied_value_usd" class="num">Implied value</th>
+    </tr>
+  </thead>
+  <tbody id="rows"></tbody>
+</table>
+
+<dialog id="detail">
+  <form method="dialog"><button class="close" aria-label="Close">✕</button></form>
+  <div id="detail-body"></div>
+</dialog>
+
+<footer>
+  <p id="recompute">Recompute check: pending…</p>
+  <p>Snapshot <span id="asof">–</span> · watchlist floor <span id="floor">–</span> · live-token protocols are shown for contrast and never ranked. Farm plans state their capital, gas and hold in every step.</p>
+</footer>
+
 <script src="../data.js"></script>
 <script src="app.js"></script>
 </body>
